@@ -1,13 +1,21 @@
 from fastapi import FastAPI
-from database import engine
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from database import SessionLocal
 from typing import List
-import schemas
-import models
+from backend.database import engine, SessionLocal
+import backend.models as models
+import backend.schemas as schemas
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
