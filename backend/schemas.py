@@ -16,3 +16,18 @@ class AnimeCreate(BaseModel):
     episodes: int | None = None
     release_year: int | None = None
     studio_id: int | None = None
+    
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class UserOut(BaseModel):
+    user_id: int
+    username: str
+
+    class Config:
+        from_attributes = True

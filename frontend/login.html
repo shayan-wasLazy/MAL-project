@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MAL Clone - Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 60px auto; padding: 0 20px; }
+        h2 { text-align: center; }
+        .tabs { display: flex; margin-bottom: 20px; }
+        .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; border: 1px solid #ccc; background: #f0f0f0; }
+        .tab.active { background: #fff; border-bottom: none; font-weight: bold; }
+        .form-section { display: none; border: 1px solid #ccc; padding: 20px; }
+        .form-section.active { display: block; }
+        label { display: block; margin-top: 10px; margin-bottom: 4px; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { margin-top: 16px; width: 100%; padding: 10px; background: #2e51a2; color: white; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background: #1e3a7a; }
+        #message { margin-top: 12px; text-align: center; font-weight: bold; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+
+<h2>MAL Clone</h2>
+
+<div class="tabs">
+    <div class="tab active" onclick="switchTab('login')">Login</div>
+    <div class="tab" onclick="switchTab('register')">Register</div>
+</div>
+
+<div id="loginSection" class="form-section active">
+    <label>Username</label>
+    <input type="text" id="loginUsername" required>
+    <label>Password</label>
+    <input type="password" id="loginPassword" required>
+    <button onclick="login()">Login</button>
+</div>
+
+<div id="registerSection" class="form-section">
+    <label>Username</label>
+    <input type="text" id="registerUsername" required>
+    <label>Password</label>
+    <input type="password" id="registerPassword" required>
+    <button onclick="register()">Create Account</button>
+</div>
+
+<p id="message"></p>
+
+<script src="script.js"></script>
+
+</body>
+</html>
