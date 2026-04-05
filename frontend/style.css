@@ -1,0 +1,40 @@
+body {
+    background-color: rgb(25, 74, 182);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.anime-card {
+    background: #111;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.anime-card:hover {
+    transform: scale(1.05);
+}
+
+.anime-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.anime-card h3 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.anime-card p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #aaa;
+}
