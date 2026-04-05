@@ -54,6 +54,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username already taken")
     new_user = models.User(
         username=user.username,
+        email=user.email,
         password=hash_password(user.password)
     )
     db.add(new_user)
@@ -68,21 +69,21 @@ def login(credentials: schemas.LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     return user
 
-@app.post("/anime", response_model=schemas.AnimeOut)
-def create_anime(
-    anime: schemas.AnimeCreate,
-    db: Session = Depends(get_db)
-):
-    new_anime = models.Anime(
-        title=anime.title,
-        episodes=anime.episodes,
-        release_year=anime.release_year,
-        studio_id=anime.studio_id
-    )
+# @app.post("/anime", response_model=schemas.AnimeOut)
+# def create_anime(
+#     anime: schemas.AnimeCreate,
+#     db: Session = Depends(get_db)
+# ):
+#     new_anime = models.Anime(
+#         title=anime.title,
+#         episodes=anime.episodes,
+#         release_year=anime.release_year,
+#         studio_id=anime.studio_id
+#     )
 
-    db.add(new_anime)
-    db.commit()
-    db.refresh(new_anime)
+#     db.add(new_anime)
+#     db.commit()
+#     db.refresh(new_anime)
 
-    return new_anime
+#     return new_anime
 
