@@ -4,18 +4,20 @@
     <title>MAL Clone</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="loadAnime()">
+
 <nav>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="AimeList.html">Animes</a></li>
+        <li><a href="AimeList.html">Anims</a></li>
         <li><a href="login.html">Account</a></li>
     </ul>
 </nav>
 
-<!-- <button onclick="loadAnime()">Load Anime</button> -->
+<h1 class="Top-title">Anime List</h1>
 
 
+<div id="animeList" class="grid"></div>
 
 <script src="script.js"></script>
 
