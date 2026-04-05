@@ -44,6 +44,10 @@ def get_anime(db: Session = Depends(get_db)):
     anime_list = db.query(models.Anime).all()
     return anime_list
 
+@app.get("/anime/{id}")
+def get_anime(id: int, db: Session = Depends(get_db)):
+    return db.query(models.Anime).filter(models.Anime.anime_id == id).first()
+
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 

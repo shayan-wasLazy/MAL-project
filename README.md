@@ -13,6 +13,10 @@ A backend + frontend project inspired by MyAnimeList.
 - User tracking
 - REST API endpoints
 
+# FLOW
+
+![project stack flow](ER Diagrams\stack flow diagram (ss).png)
+
 ## Run Backend
 
 ```bash

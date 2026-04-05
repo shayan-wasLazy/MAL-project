@@ -17,9 +17,46 @@ async function loadAnime() {
             <h3>${a.title}</h3>
             <p>${a.start_date}</p>
         `;
+
+        card.addEventListener("click", () => {
+            window.location.href = `AnimeInfo.html?id=${a.anime_id}`;
+            console.log(`Navigating to anime with ID: ${a.anime_id}`);
+        });
         list.appendChild(card);
     }); 
 }
+
+console.log("SCRIPT LOADED");
+
+async function displayAnime() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    console.log(`Fetching details for anime ID: ${id}`);
+    const response = await fetch(`http://127.0.0.1:8000/anime/${id}`);
+
+    const anime = await response.json();
+
+    const container = document.getElementById("animeInfo");
+
+    if (!container) {
+    console.error("animeInfo div not found");
+    return;
+    }
+
+    container.innerHTML = `
+        <div class="detail-card">
+            <img src="${anime.image_url}">
+            <div>
+                <h1>${anime.title}</h1>
+                <p><strong>Start Date:</strong> ${anime.start_date}</p>
+                <p>${anime.synopsis || "No description available."}</p>
+            </div>
+        </div>
+    `;
+}
+
+
 
 // function switchTab(tab) {
 //     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));

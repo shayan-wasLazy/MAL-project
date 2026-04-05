@@ -1,6 +1,6 @@
 body {
     background-color: rgb(17, 17, 17);
-    font: arial;
+    font: 16px/1.5 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 nav {
@@ -90,4 +90,23 @@ nav {
     color: white;
     text-align: center;
     margin-top: 20px;
+}
+
+.detail-container {
+    padding: 40px;
+}
+
+.detail-card {
+    color: white;
+    display: flex;
+    gap: 30px;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.detail-card img {
+    width: 250px;
+    border-radius: 10px;
 }

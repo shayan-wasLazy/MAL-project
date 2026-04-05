@@ -4,7 +4,7 @@
     <title>MAL Clone</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="displayAnime()">
 
 <nav>
     <ul class="nav-links">
@@ -14,14 +14,12 @@
     </ul>
 </nav>
 
-<h1 class="Top-title">Anime List</h1>
 
 
-<div id="animeList" class="grid"></div>
+<div id="animeInfo" class="detail-container"></div>
 
 <script src="script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", loadAnime);
     document.addEventListener("DOMContentLoaded", displayAnime);
 </script>
 
