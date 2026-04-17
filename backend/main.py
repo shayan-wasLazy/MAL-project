@@ -78,11 +78,29 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 
 @app.get("/user/{user_id}/anime")
 def get_user_anime(user_id: int, db: Session = Depends(get_db)):
-    data = db.query(models.UserAnime).filter(
+
+    results = db.query(
+        models.UserAnime,
+        models.Anime.title,
+        models.Anime.image_url
+    ).join(
+        models.Anime,
+        models.UserAnime.anime_id == models.Anime.anime_id
+    ).filter(
         models.UserAnime.user_id == user_id
     ).all()
-    
-    return data
+
+    return [
+        {
+            "anime_id": ua.anime_id,
+            "title": title,
+            "image_url": image_url,
+            "watch_status": ua.watch_status,
+            "rating": ua.rating,
+            "episodes_watched": ua.episodes_watched
+        }
+        for ua, title, image_url in results
+    ]
 
 @app.get("/anime/{id}")
 def get_anime(id: int, db: Session = Depends(get_db)):

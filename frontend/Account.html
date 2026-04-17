@@ -17,38 +17,27 @@
 
 <div id="accountContainer">
 
-    <h1>Your Account</h1>
+    <h1 class="section-title">Your Account</h1>
 
     <!-- User Info -->
-    <div id="userInfo">
+    <div id="userInfo" class="card">
         <h2 id="username">Loading...</h2>
         <p id="email"></p>
     </div>
 
     <!-- Watchlist -->
     <div id="watchlistSection">
-        <h2>Your Watchlist</h2>
-        <ul id="watchlist"></ul>
+        <h2 class="section-title">Your Watchlist</h2>
+        <div id="watchlist" class="watchlist-grid"></div>
     </div>
 
     <!-- Logout -->
-    <button onclick="logout()">Logout</button>
+    <button class="logout-btn" onclick="logout()">Logout</button>
 
 </div>
 
+<!-- Link your JS file -->
 <script src="script.js"></script>
-
-<script>
-    const user_id = localStorage.getItem("user_id");
-
-    if (!user_id) {
-        alert("Please login first");
-        window.location.href = "login.html";
-    }
-
-    loadUser();
-    loadWatchlist();
-</script>
 
 </body>
 </html>

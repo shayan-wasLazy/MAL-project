@@ -151,9 +151,18 @@ async function loadWatchlist() {
     list.innerHTML = "";
 
     data.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `Anime ID: ${item.anime_id} | Status: ${item.watch_status}`;
-        list.appendChild(li);
+        const card = document.createElement("div");
+        card.classList.add("anime-card");
+
+        card.innerHTML = `
+            <img src="${item.image_url}" class="anime-img">
+            <h3>${item.title}</h3>
+            <p>Status: ${item.watch_status}</p>
+            <p>Rating: ${item.rating || "-"}</p>
+            <p>Episodes: ${item.episodes_watched}</p>
+        `;
+
+        list.appendChild(card);
     });
 }
 
@@ -206,3 +215,25 @@ async function saveAnime(anime_id) {
         alert(data.detail || "Error");
     }
 }
+
+window.onload = () => {
+    console.log("Page loaded");
+
+    const user_id = localStorage.getItem("user_id");
+    console.log("User ID:", user_id);
+
+    if (!user_id) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Only run on Account page
+    if (document.getElementById("username")) {
+        loadUser();
+    }
+
+    if (document.getElementById("watchlist")) {
+        loadWatchlist();
+    }
+};

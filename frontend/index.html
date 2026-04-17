@@ -3,8 +3,13 @@
 <head>
     <title>MAL Clone</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Anime.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
+
 <body>
+
 <nav>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -13,11 +18,74 @@
     </ul>
 </nav>
 
-<!-- <button onclick="loadAnime()">Load Anime</button> -->
+<!-- HERO SECTION -->
+<section class="hero">
+    <h1 class="hero-title">Track. Watch. Discover.</h1>
+    <p class="hero-subtitle">Your personal anime universe.</p>
+    
+    <div class="hero-buttons">
+        <a href="AimeList.html" class="btn-primary">Browse Anime</a>
+        <a href="Account.html" class="btn-secondary">My List</a>
+    </div>
+</section>
 
+<!-- FEATURE SECTION -->
+<section class="features">
 
+    <div class="feature-card">
+        <h2>📺 Track Progress</h2>
+        <p>Keep track of episodes, ratings, and status.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>⭐ Rate Anime</h2>
+        <p>Score your favorite shows and build your taste.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>🔥 Discover</h2>
+        <p>Find new anime tailored to your preferences.</p>
+    </div>
+
+</section>
 
 <script src="script.js"></script>
+
+<!-- ANIMATION SCRIPT -->
+<script>
+    anime({
+        targets: '.hero-title',
+        translateY: [-50, 0],
+        opacity: [0, 1],
+        duration: 1200,
+        easing: 'easeOutExpo'
+    });
+
+    anime({
+        targets: '.hero-subtitle',
+        translateY: [30, 0],
+        opacity: [0, 1],
+        delay: 300,
+        duration: 1200,
+        easing: 'easeOutExpo'
+    });
+
+    anime({
+        targets: '.btn-primary, .btn-secondary',
+        scale: [0.8, 1],
+        opacity: [0, 1],
+        delay: anime.stagger(200, {start: 600}),
+        easing: 'easeOutBack'
+    });
+
+    anime({
+        targets: '.feature-card',
+        translateY: [50, 0],
+        opacity: [0, 1],
+        delay: anime.stagger(200, {start: 800}),
+        easing: 'easeOutExpo'
+    });
+</script>
 
 </body>
 </html>
