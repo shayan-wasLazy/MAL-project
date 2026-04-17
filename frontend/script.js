@@ -1,6 +1,9 @@
+// const BASE_URL = " https://pedicure-overplay-hamstring.ngrok-free.dev";
+const BASE_URL = "http://127.0.0.1:8000";
+
 async function loadAnime() {
 
-    const response = await fetch("http://127.0.0.1:8000/anime");
+    const response = await fetch(`${BASE_URL}/anime`);
 
     const anime = await response.json();
 
@@ -40,7 +43,7 @@ async function displayAnime() {
 
     console.log(`Fetching details for anime ID: ${id}`);
 
-    const response = await fetch(`http://127.0.0.1:8000/anime/${id}`);
+    const response = await fetch(`${BASE_URL}/anime/${id}`);
     const anime = await response.json();
 
     const container = document.getElementById("animeInfo");
@@ -97,7 +100,7 @@ async function login() {
         return;
     }
 
-    const response = await fetch("http://127.0.0.1:8000/login", {
+    const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
@@ -125,7 +128,7 @@ async function register() {
         return;
     }
 
-    const response = await fetch("http://127.0.0.1:8000/register", {
+    const response = await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })
@@ -144,7 +147,7 @@ async function register() {
 async function loadWatchlist() {
     const user_id = localStorage.getItem("user_id");
 
-    const response = await fetch(`http://127.0.0.1:8000/user/${user_id}/anime`);
+    const response = await fetch(`${BASE_URL}/user/${user_id}/anime`);
     const data = await response.json();
 
     const list = document.getElementById("watchlist");
@@ -169,7 +172,7 @@ async function loadWatchlist() {
 async function loadUser() {
     const user_id = localStorage.getItem("user_id");
 
-    const response = await fetch(`http://127.0.0.1:8000/user/${user_id}`);
+    const response = await fetch(`${BASE_URL}/user/${user_id}`);
     const data = await response.json();
 
     document.getElementById("username").textContent = data.username;
@@ -193,7 +196,7 @@ async function saveAnime(anime_id) {
     const rating = document.getElementById("rating").value;
     const episodes = document.getElementById("episodes").value;
 
-    const response = await fetch("http://127.0.0.1:8000/user_anime", {
+    const response = await fetch(`${BASE_URL}/user_anime`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -220,15 +223,17 @@ window.onload = () => {
     console.log("Page loaded");
 
     const user_id = localStorage.getItem("user_id");
-    console.log("User ID:", user_id);
 
-    if (!user_id) {
+    const isLoginPage = window.location.pathname.includes("login.html");
+
+    // ❗ Only block protected pages
+    if (!user_id && !isLoginPage) {
         alert("Please login first");
         window.location.href = "login.html";
         return;
     }
 
-    // Only run on Account page
+    // Load data only where needed
     if (document.getElementById("username")) {
         loadUser();
     }
@@ -236,4 +241,11 @@ window.onload = () => {
     if (document.getElementById("watchlist")) {
         loadWatchlist();
     }
+
+    // Run anime detail only if needed
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (id) {
+        displayAnime();
+    }
 };
+

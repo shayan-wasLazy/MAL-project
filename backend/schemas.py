@@ -18,12 +18,6 @@ class AnimeOut(BaseModel):
     class Config:
         from_attributes = True
         
-# class AnimeCreate(BaseModel):
-#     title: str
-#     episodes: int | None = None
-#     release_year: int | None = None
-#     studio_id: int | None = None
-    
 class UserCreate(BaseModel):
     username: str
     email: str
