@@ -15,7 +15,7 @@ A backend + frontend project inspired by MyAnimeList.
 
 # FLOW
 
-![project stack flow](ER Diagrams\stack flow diagram (ss).png)
+![img](https://github.com/shayan-wasLazy/MAL-project/blob/21f0ddb4f55d80f7fd0012d086759329bbfd7b6c/ER%20Diagrams/stack%20flow%20diagram%20(ss).png)
 
 ## Run Backend
 
