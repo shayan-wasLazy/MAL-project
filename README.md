@@ -20,4 +20,5 @@ A backend + frontend project inspired by MyAnimeList.
 ## Run Backend
 
 ```bash
+pip install -r requirements.txt
 uvicorn backend.main:app --reload
