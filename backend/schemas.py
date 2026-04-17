@@ -39,3 +39,10 @@ class UserOut(BaseModel):
 
     class Config:
         from_attributes = True
+        
+class UserAnimeCreate(BaseModel):
+    user_id: int
+    anime_id: int
+    watch_status: str
+    rating: int | None = None
+    episodes_watched: int = 0

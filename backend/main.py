@@ -44,12 +44,6 @@ def get_anime(db: Session = Depends(get_db)):
     anime_list = db.query(models.Anime).all()
     return anime_list
 
-@app.get("/anime/{id}")
-def get_anime(id: int, db: Session = Depends(get_db)):
-    return db.query(models.Anime).filter(models.Anime.anime_id == id).first()
-
-def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
 
 @app.post("/register", response_model=schemas.UserOut)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -73,21 +67,53 @@ def login(credentials: schemas.LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     return user
 
-# @app.post("/anime", response_model=schemas.AnimeOut)
-# def create_anime(
-#     anime: schemas.AnimeCreate,
-#     db: Session = Depends(get_db)
-# ):
-#     new_anime = models.Anime(
-#         title=anime.title,
-#         episodes=anime.episodes,
-#         release_year=anime.release_year,
-#         studio_id=anime.studio_id
-#     )
+@app.get("/user/{user_id}")
+def get_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.user_id == user_id).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user
 
-#     db.add(new_anime)
-#     db.commit()
-#     db.refresh(new_anime)
+@app.get("/user/{user_id}/anime")
+def get_user_anime(user_id: int, db: Session = Depends(get_db)):
+    data = db.query(models.UserAnime).filter(
+        models.UserAnime.user_id == user_id
+    ).all()
+    
+    return data
 
-#     return new_anime
+@app.get("/anime/{id}")
+def get_anime(id: int, db: Session = Depends(get_db)):
+    return db.query(models.Anime).filter(models.Anime.anime_id == id).first()
 
+def hash_password(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
+
+@app.post("/user_anime")
+def add_user_anime(entry: schemas.UserAnimeCreate, db: Session = Depends(get_db)):
+
+    existing = db.query(models.UserAnime).filter(
+        models.UserAnime.user_id == entry.user_id,
+        models.UserAnime.anime_id == entry.anime_id
+    ).first()
+
+    if existing:
+        # UPDATE instead of error
+        existing.watch_status = entry.watch_status
+        existing.rating = entry.rating
+        existing.episodes_watched = entry.episodes_watched
+    else:
+        new_entry = models.UserAnime(
+            user_id=entry.user_id,
+            anime_id=entry.anime_id,
+            watch_status=entry.watch_status,
+            rating=entry.rating,
+            episodes_watched=entry.episodes_watched
+        )
+        db.add(new_entry)
+
+    db.commit()
+
+    return {"message": "Saved successfully"}

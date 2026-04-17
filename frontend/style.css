@@ -129,3 +129,17 @@ nav {
 #loginSection a {
     color: white;
 }
+
+.anime-controls {
+    margin-top: 10px;
+}
+
+.anime-controls input,
+.anime-controls select {
+    margin: 5px;
+    padding: 5px;
+}
+
+.anime-controls button {
+    margin-top: 5px;
+}
