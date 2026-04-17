@@ -110,3 +110,22 @@ nav {
     width: 250px;
     border-radius: 10px;
 }
+
+#loginSection {
+    color: white;
+}
+
+#loginSection label {
+    color: white;
+}
+
+#loginSection input {
+    color: white;
+    background-color: #222;   /* optional for better contrast */
+    border: 1px solid #555;
+}
+
+#loginSection button,
+#loginSection a {
+    color: white;
+}
