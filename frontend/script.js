@@ -16,7 +16,7 @@ async function loadAnime() {
         card.classList.add("anime-card");
 
         card.innerHTML = `
-            <img src="${a.image_url}" alt="${a.title}">
+            <img src="${a.img_url}" alt="${a.title}">
             <h3>${a.title}</h3>
             <p>${a.start_date}</p>
         `;
@@ -45,6 +45,10 @@ async function displayAnime() {
 
     const response = await fetch(`${BASE_URL}/anime/${id}`);
     const anime = await response.json();
+    const ranime = await fetch(`http://localhost:8000/recommend/${anime.title}`)
+    const recommendations = await ranime.json();
+    console.log("Recommendations:", recommendations);
+    console.log(Array.isArray(recommendations));
 
     const container = document.getElementById("animeInfo");
 
@@ -55,11 +59,11 @@ async function displayAnime() {
 
     container.innerHTML = `
         <div class="detail-card">
-            <img src="${anime.image_url}">
+            <img src="${anime.img_url}">
             <div>
                 <h1>${anime.title}</h1>
                 <p><strong>Start Date:</strong> ${anime.start_date}</p>
-                <p>${anime.synopsis || "No description available."}</p>
+                <p>${anime.sysnopsis || "No description available."}</p>
 
                 <div class="anime-controls">
 
@@ -82,6 +86,45 @@ async function displayAnime() {
             </div>
         </div>
     `;
+
+    // container.innerHTML += `
+
+    const list = document.getElementById("animeList");
+
+    list.innerHTML = "";
+
+    const fullRecommendations = await Promise.all(
+
+        recommendations.map(async (rec) => {
+
+            const response = await fetch(
+                `${BASE_URL}/anime/${rec.anime_id}`
+            );
+
+            return await response.json();
+        })
+    );
+
+    fullRecommendations.forEach(a => {
+
+        const card = document.createElement("div");
+
+        card.classList.add("anime-card");
+
+        card.innerHTML = `
+            <img src="${a.img_url}" alt="${a.title}">
+            <h3>${a.title}</h3>
+            <p>${a.start_date || "Unknown"}</p>
+        `;
+
+        card.addEventListener("click", () => {
+
+            window.location.href =
+                `AnimeInfo.html?id=${a.anime_id}`;
+        });
+
+        list.appendChild(card);
+    });
 }
 
 
@@ -158,7 +201,7 @@ async function loadWatchlist() {
         card.classList.add("anime-card");
 
         card.innerHTML = `
-            <img src="${item.image_url}" class="anime-img">
+            <img src="${item.img_url}" class="anime-img">
             <h3>${item.title}</h3>
             <p>Status: ${item.watch_status}</p>
             <p>Rating: ${item.rating || "-"}</p>

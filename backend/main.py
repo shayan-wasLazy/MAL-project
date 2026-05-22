@@ -39,9 +39,13 @@ def get_db():
     finally:
         db.close()
 
+from sqlalchemy import desc, nullslast
+
 @app.get("/anime", response_model=List[schemas.AnimeOut])
 def get_anime(db: Session = Depends(get_db)):
-    anime_list = db.query(models.Anime).all()
+    anime_list = db.query(models.Anime)\
+                   .order_by(nullslast(desc(models.Anime.score)))\
+                   .all() # add \.limit(50)\ for limit
     return anime_list
 
 
@@ -82,7 +86,7 @@ def get_user_anime(user_id: int, db: Session = Depends(get_db)):
     results = db.query(
         models.UserAnime,
         models.Anime.title,
-        models.Anime.image_url
+        models.Anime.img_url
     ).join(
         models.Anime,
         models.UserAnime.anime_id == models.Anime.anime_id
@@ -94,12 +98,12 @@ def get_user_anime(user_id: int, db: Session = Depends(get_db)):
         {
             "anime_id": ua.anime_id,
             "title": title,
-            "image_url": image_url,
+            "img_url": img_url,
             "watch_status": ua.watch_status,
             "rating": ua.rating,
             "episodes_watched": ua.episodes_watched
         }
-        for ua, title, image_url in results
+        for ua, title, img_url in results
     ]
 
 @app.get("/anime/{id}")
@@ -135,3 +139,10 @@ def add_user_anime(entry: schemas.UserAnimeCreate, db: Session = Depends(get_db)
     db.commit()
 
     return {"message": "Saved successfully"}
+
+from backend.recc import anime_reccomend
+
+@app.get("/recommend/{anime_name}")
+def recommend(anime_name: str):
+
+    return anime_reccomend(anime_name)

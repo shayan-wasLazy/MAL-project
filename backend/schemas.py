@@ -8,12 +8,12 @@ class AnimeOut(BaseModel):
     title: str
     start_date: Optional[date] = None
     score : Optional[int] = None
-    rank : Optional[int] = None
+    # rank : Optional[int] = None
     popularity : Optional[int] = None
-    synopsis : str
+    sysnopsis : str
     type : str
     episodes : Optional[int] = None
-    image_url : str
+    img_url : str
 
     class Config:
         from_attributes = True
