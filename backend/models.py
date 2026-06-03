@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Float
 from backend.database import Base
 
 class User(Base):
@@ -13,8 +13,8 @@ class Anime(Base):
     __tablename__ = 'anime_dataset'
     
     anime_id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(100), nullable=False)
-    score = Column(Integer)
+    title = Column(String, nullable=False)
+    score = Column(Float)
     # rank = Column(Integer)
     popularity = Column(Integer)
     # members = Column(Integer)
