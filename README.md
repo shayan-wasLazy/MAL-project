@@ -1,4 +1,3 @@
-````md
 # Anime Recommendation Engine
 
 An AI-powered anime recommendation platform built using FastAPI, PostgreSQL, Qdrant Vector Database, and Large Language Models.
@@ -183,6 +182,3 @@ This project explores:
 
 B.Tech Data Science Student
 Backend Development • AI Applications • Recommendation Systems
-
-```
-```
